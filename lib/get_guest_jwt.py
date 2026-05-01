@@ -1,23 +1,25 @@
 import requests
 
 
-def get_ff_guest_jwt(uid, password):
+def get_ff_guest_jwt(uid, password, region):
     """
     Fetch FF guest JWT token
 
     Args:
         uid (str): User ID
         password (str): Password/hash
+        region (str): Region code
 
     Returns:
         dict: JSON response from API
     """
 
-    url = "https://get-ff-guest-jwt.vercel.app/get_jwt"
+    url = "http://127.0.0.1:5080/get_jwt"
 
     params = {
         "uid": uid,
-        "password": password
+        "password": password,
+        "region": region
     }
 
     try:
