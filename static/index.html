@@ -338,7 +338,7 @@
     if (isLoading) {
       apiStatusSpan.innerHTML = "⏳ Fetching...";
       apiStatusSpan.style.background = "#FFB34730";
-      profileRoot.innerHTML = `<div class="loader"><div class="spinner"></div><p>🕹️ contacting server <br> http://localhost:5000/player-info</p></div>`;
+      profileRoot.innerHTML = `<div class="loader"><div class="spinner"></div><p>🕹️ contacting server <br> /player-info</p></div>`;
     } else {
       apiStatusSpan.style.background = "#1F2A3C";
     }
@@ -470,7 +470,7 @@
 
         <!-- footer note -->
         <div style="margin-top: 1.8rem; text-align: center; font-size: 0.7rem; opacity: 0.6; border-top: 1px solid #2e405e; padding-top: 1rem;">
-          Free Fire Official Stats · fetched from localhost:5000 | UID ${basic.accountId} · Last sync ${new Date().toLocaleString()}
+          Free Fire Official Stats · fetched from Server | UID ${basic.accountId} · Last sync ${new Date().toLocaleString()}
         </div>
       </div>
     `;
@@ -514,7 +514,7 @@
       return json;
     } catch (err) {
       clearTimeout(timeoutId);
-      if (err.name === 'AbortError') throw new Error("Request timeout (12s) - check if localhost:5000 is running");
+      if (err.name === 'AbortError') throw new Error("Request timeout (12s) - check if server is running");
       throw err;
     }
   }
@@ -546,7 +546,7 @@
       console.error(error);
       let errorMsg = error.message || "Unknown error";
       if (errorMsg.includes("Failed to fetch") || errorMsg.includes("NetworkError")) {
-        errorMsg = "🌐 Cannot connect to localhost:5000. Make sure the backend server is running (python/node server) and CORS is enabled.";
+        errorMsg = "🌐 Cannot connect to Server. Make sure the backend server is running (python/node server) and CORS is enabled.";
       }
       profileRoot.innerHTML = `
         <div class="error-message" style="background: #2a1820; border-left-color: #FF8C5A;">
