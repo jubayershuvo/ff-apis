@@ -1,0 +1,16 @@
+{
+  "BD": [
+    {
+      "uid": "4754356819",
+      "password": "1589073FEF11EA9A10FDB0A2B6C05C4337C95C6503DF2EAF25E5AEF37EAA4034",
+      "region": "BD"
+    }
+  ],
+  "IN": [
+    {
+      "uid": "1234567890",
+      "password": "SOME_HASH_HERE",
+      "region": "IN"
+    }
+  ]
+}

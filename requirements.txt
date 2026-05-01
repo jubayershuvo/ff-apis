@@ -1,0 +1,6 @@
+Flask
+flask-cors
+pycryptodome
+blackboxprotobuf
+requests
+chardet

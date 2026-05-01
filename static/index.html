@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Free Fire Arsenal · Player Profile Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0B101A, #020408);
+      font-family: 'Inter', sans-serif;
+      color: #F0F3FA;
+      padding: 1.5rem 1.2rem 3rem;
+      min-height: 100vh;
+    }
+
+    .app-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* search bar premium */
+    .search-panel {
+      background: rgba(18, 28, 40, 0.75);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      border: 1px solid rgba(88, 140, 210, 0.4);
+      padding: 1rem 1.8rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 1rem;
+      justify-content: space-between;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+
+    .input-group {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      color: #A5C9FF;
+      margin-bottom: 6px;
+    }
+
+    .input-group input, .input-group select {
+      width: 100%;
+      background: #0E1622;
+      border: 1px solid #2A3A58;
+      padding: 12px 16px;
+      border-radius: 1.5rem;
+      color: white;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      font-family: 'Inter', monospace;
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #FFCD7A;
+      box-shadow: 0 0 0 2px rgba(255,205,122,0.3);
+    }
+
+    .fetch-btn {
+      background: linear-gradient(105deg, #FFCD7A, #FFB347);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0A0F1A;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    .fetch-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(105deg, #FFE0A3, #FFC46B);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.4);
+    }
+
+    .status-badge {
+      background: #1F2A3C;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* loading state */
+    .loader {
+      text-align: center;
+      padding: 3rem;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,205,122,0.3);
+      border-top: 4px solid #FFCD7A;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* profile container */
+    .profile-container {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.3s ease;
+    }
+    .profile-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-card {
+      background: rgba(12, 20, 32, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(88, 130, 193, 0.3);
+      padding: 1.6rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .player-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+      flex-wrap: wrap;
+    }
+    .avatar-circle {
+      width: 85px;
+      height: 85px;
+      background: linear-gradient(145deg, #2C405E, #121E30);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 8px 18px black;
+    }
+    .player-name h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF5DD, #FFD78C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .rank-stats {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      background: rgba(0,0,0,0.45);
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+    }
+    .stat-cell {
+      text-align: center;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #8fbbff;
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #FFDDAA;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 1.5rem;
+    }
+    .glass-card {
+      background: rgba(16, 24, 36, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 1.6rem;
+      border: 1px solid rgba(92, 138, 206, 0.35);
+      padding: 1.2rem 1.4rem;
+      transition: 0.2s;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,205,122,0.3);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    .detail-label {
+      color: #9fb9e5;
+      font-weight: 500;
+    }
+    .season-list {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .season-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+    }
+    .rank-number {
+      background: #2A3C58;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .error-message {
+      background: #ff4d4d20;
+      border-left: 5px solid #ffb347;
+      padding: 1rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      color: #ffdb9f;
+    }
+
+    @media (max-width: 680px) {
+      .search-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .player-main {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-wrapper">
+  <!-- SEARCH CONTROLS -->
+  <div class="search-panel">
+    <div class="input-group">
+      <label>🎮 PLAYER UID</label>
+      <input type="number" id="uidInput" placeholder="e.g., 3168493928" value="3168493928">
+    </div>
+    <div class="input-group">
+      <label>🌍 REGION</label>
+      <select id="regionSelect">
+        <option value="BD">🇧🇩 Bangladesh (BD)</option>
+        <option value="IN">🇮🇳 India (IN)</option>
+        <option value="US">🇺🇸 United States (US)</option>
+        <option value="EU">🇪🇺 Europe (EU)</option>
+        <option value="SG">🇸🇬 Singapore (SG)</option>
+        <option value="TR">🇹🇷 Turkey (TR)</option>
+        <option value="RU">🇷🇺 Russia (RU)</option>
+        <option value="BR">🇧🇷 Brazil (BR)</option>
+        <option value="ME">🇦🇪 Middle East (ME)</option>
+        <option value="KR">🇰🇷 Korea (KR)</option>
+        <option value="JP">🇯🇵 Japan (JP)</option>
+        <option value="CN">🇨🇳 China (CN)</option>
+        <option value="TW">🇹🇼 Taiwan (TW)</option>
+      </select>
+    </div>
+    <button class="fetch-btn" id="fetchBtn">🔍 LOAD PROFILE</button>
+    <div class="status-badge" id="apiStatus">⚡ Ready</div>
+  </div>
+
+  <!-- DYNAMIC PROFILE AREA -->
+  <div id="profileRoot">
+    <div style="text-align: center; padding: 3rem 1rem; opacity: 0.7;">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🎯</div>
+      <h3>Enter UID & Region</h3>
+      <p>Click "LOAD PROFILE" to fetch real-time Free Fire stats from local API</p>
+      <small style="background: #0F1622; padding: 0.3rem 0.8rem; border-radius: 2rem;">Example: 3168493928 | BD</small>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ----- DOM elements ----------
+  const uidInput = document.getElementById('uidInput');
+  const regionSelect = document.getElementById('regionSelect');
+  const fetchBtn = document.getElementById('fetchBtn');
+  const profileRoot = document.getElementById('profileRoot');
+  const apiStatusSpan = document.getElementById('apiStatus');
+
+  // Helper: format numbers
+  const formatNum = (num) => (num || 0).toLocaleString();
+
+  // Escape HTML
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) { return c; });
+  }
+
+  // Format season badge name for readability
+  function prettySeasonName(badgeName) {
+    if (!badgeName) return "BP Season";
+    return badgeName.replace(/T_\d+_SH_|T_\d+_FH_|T_\d+_JC_|_BADGENAME|_NAME/g, '').replace(/BP\d+/, 'BP');
+  }
+
+  // Show loading state
+  function setLoading(isLoading) {
+    if (isLoading) {
+      apiStatusSpan.innerHTML = "⏳ Fetching...";
+      apiStatusSpan.style.background = "#FFB34730";
+      profileRoot.innerHTML = `<div class="loader"><div class="spinner"></div><p>🕹️ contacting server <br> http://localhost:5000/player-info</p></div>`;
+    } else {
+      apiStatusSpan.style.background = "#1F2A3C";
+    }
+  }
+
+  // Main render function using API data
+  function renderProfile(apiResponse) {
+    if (!apiResponse || apiResponse.success !== true) {
+      throw new Error(apiResponse?.message || "Invalid API response");
+    }
+
+    const data = apiResponse.data;
+    if (!data || !data.basicInfo) throw new Error("Missing player data");
+    
+    const basic = data.basicInfo;
+    const clan = data.clanBasicInfo;
+    const social = data.socialInfo || {};
+    const credit = data.creditScoreInfo || {};
+    const historyEp = data.historyEpInfo || [];
+    const pet = data.petInfo || {};
+    const spark = data.userSparkInfo || {};
+    const collabSpark = data.collabSparkInfo || {};
+    const diamondCost = data.diamondCostRes?.diamondCost || 0;
+    
+    // Social highlight extraction (BR kills, wins)
+    const highlights = basic.socialHighlights || [];
+    let brKills = 0, brWins = 0, csKills = 0;
+    if (highlights[0] && highlights[0][3]) {
+      brKills = highlights[0][3][3] || 0;
+      brWins = highlights[0][3][2] || 0;
+    }
+    if (highlights[1] && highlights[1][3]) {
+      csKills = highlights[1][3][3] || 0;
+    }
+
+    // Build history HTML (first 12 seasons)
+    const seasonHtml = historyEp.slice(0, 14).map(season => `
+      <div class="season-item">
+        <span>🏅 S${season.seasonId} ${escapeHtml(prettySeasonName(season.badgeName))}</span>
+        <span class="rank-number">${season.rank ? 'Rank ' + season.rank : (season.isMax ? 'MAX' : '—')}</span>
+      </div>
+    `).join('');
+    const moreSeasons = historyEp.length > 14 ? `<div class="season-item"><span>+ ${historyEp.length - 14} more seasons</span><span>✨</span></div>` : '';
+
+    // Avatar frame dummy (just visual)
+    const avatarEmoji = "🎮";
+    
+    const profileHtml = `
+      <div class="profile-container visible" id="profileContainer">
+        <!-- HERO CARD -->
+        <div class="hero-card">
+          <div class="player-main">
+            <div class="identity">
+              <div class="avatar-circle">${avatarEmoji}</div>
+              <div>
+                <div class="player-name"><h1>${escapeHtml(basic.nickname)}</h1></div>
+                <div style="display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.3rem;">
+                  <span class="status-badge">🆔 ${basic.accountId}</span>
+                  <span class="status-badge">🌍 ${basic.region}</span>
+                  <span class="status-badge">⭐ Lv.${basic.level}</span>
+                  <span class="status-badge">📱 ${basic.releaseVersion || 'OB53'}</span>
+                </div>
+              </div>
+            </div>
+            <div class="rank-stats">
+              <div class="stat-cell"><div class="stat-label">🏆 BR RANK</div><div class="stat-value">#${basic.rank}</div><div style="font-size: 0.7rem;">${basic.rankingPoints} RP</div></div>
+              <div class="stat-cell"><div class="stat-label">🎯 CS RANK</div><div class="stat-value">#${basic.csRank}</div><div style="font-size: 0.7rem;">${basic.csRankingPoints} pts</div></div>
+              <div class="stat-cell"><div class="stat-label">❤️ LIKES</div><div class="stat-value">${formatNum(basic.liked)}</div></div>
+              <div class="stat-cell"><div class="stat-label">💎 DIAMOND</div><div class="stat-value">${diamondCost}</div></div>
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 1.2rem; gap: 8px; font-size: 0.75rem;">
+            <span>📅 Created: ${basic.createAtReadable || '—'}</span>
+            <span>🕒 Last login: ${basic.lastLoginAtReadable || '—'}</span>
+            <span>🏅 Badges: ${basic.badgeCnt || 0}</span>
+            <span>⚡ Season ${basic.seasonId}</span>
+          </div>
+        </div>
+
+        <!-- GRID CARDS -->
+        <div class="info-grid">
+          <!-- clan & social card -->
+          <div class="glass-card">
+            <div class="card-header"><h3>🏛️ CLAN & SOCIAL</h3></div>
+            ${clan && clan.clanId ? `
+              <div class="detail-row"><span class="detail-label">Clan name</span><span>${escapeHtml(clan.clanName)}</span></div>
+              <div class="detail-row"><span class="detail-label">Level ${clan.clanLevel}</span><span>👥 ${clan.memberNum}/${clan.capacity}</span></div>
+              <div class="detail-row"><span class="detail-label">Clan ID</span><span>${clan.clanId}</span></div>
+            ` : `<div class="detail-row"><span>🚫 No clan info</span></div>`}
+            <div class="detail-row"><span class="detail-label">✍️ Signature</span><span class="detail-value" style="font-style:italic;">“${escapeHtml(social.signature || 'No signature')}”</span></div>
+            <div class="detail-row"><span class="detail-label">Gender / Lang</span><span>${social.gender === 1 ? 'Male' : 'Female'} · ${social.language === 1 ? 'EN' : 'Multi'}</span></div>
+            <div class="detail-row"><span class="detail-label">⭐ Credit Score</span><span class="credit-score" style="color:#BDFF9E;">${credit.creditScore || 100} / 100</span></div>
+            <div class="detail-row"><span class="detail-label">⏱️ Activity</span><span>${social.timeActive === 2 ? '🔥 Hardcore' : 'Casual'}</span></div>
+          </div>
+
+          <!-- combat & pet -->
+          <div class="glass-card">
+            <div class="card-header"><h3>⚔️ COMBAT STATS</h3></div>
+            <div class="detail-row"><span class="detail-label">🔥 BR Kills (S${basic.seasonId})</span><span>${formatNum(brKills)}</span></div>
+            <div class="detail-row"><span class="detail-label">🏆 BR Wins</span><span>${formatNum(brWins)}</span></div>
+            <div class="detail-row"><span class="detail-label">🎯 CS Kills</span><span>${formatNum(csKills)}</span></div>
+            <div class="detail-row"><span class="detail-label">🐾 Pet</span><span>ID ${pet.id || '—'} · Lv.${pet.level || 1} ❤️ ${pet.exp || 0} XP</span></div>
+            <div class="detail-row"><span class="detail-label">🎨 Avatar / Banner</span><span>${data.profileInfo?.avatarId || basic.headPic || '—'} / ${basic.bannerId}</span></div>
+            <div class="detail-row"><span class="detail-label">🏅 Max Rank Ever</span><span>#${basic.maxRank}</span></div>
+          </div>
+
+          <!-- season pass history -->
+          <div class="glass-card">
+            <div class="card-header"><h3>📜 BATTLE PASS HISTORY</h3></div>
+            <div class="season-list">
+              ${seasonHtml || '<div class="detail-row">No season data</div>'}
+              ${moreSeasons}
+            </div>
+            <div class="detail-row" style="margin-top: 0.7rem;"><span>⭐ CS Peak Pos</span><span>#${basic.csPeakTournamentRankPos || basic.csRank}</span></div>
+            <div class="detail-row"><span>✨ Total EXP</span><span>${formatNum(basic.exp)}</span></div>
+          </div>
+
+          <!-- Spark & Collaborations + extra -->
+          <div class="glass-card">
+            <div class="card-header"><h3>✨ SPARK POWER</h3></div>
+            <div class="detail-row"><span class="detail-label">⚡ Spark Level</span><span>Lv.${spark[1] || 1} (${spark[2] || 0} pts)</span></div>
+            <div class="detail-row"><span class="detail-label">🤝 Collab Tokens</span><span>🎴 ${collabSpark[4] || 0} · gifts ${collabSpark[2] || 0}</span></div>
+            <div class="detail-row"><span class="detail-label">🏅 Title / Pin ID</span><span>${basic.title} / ${basic.pinId}</span></div>
+            <div class="detail-row"><span class="detail-label">📛 Badge showcase</span><span>ID ${basic.badgeId}</span></div>
+            <div class="detail-row"><span class="detail-label">🎮 Region / API ver</span><span>${basic.region} · ${apiResponse.metadata?.api_version || '1.0'}</span></div>
+            <div class="detail-row"><span class="detail-label">⭐ Season ${basic.seasonId} Rank</span><span>#${basic.rank} (${basic.rankingPoints})</span></div>
+          </div>
+        </div>
+
+        <!-- footer note -->
+        <div style="margin-top: 1.8rem; text-align: center; font-size: 0.7rem; opacity: 0.6; border-top: 1px solid #2e405e; padding-top: 1rem;">
+          Free Fire Official Stats · fetched from localhost:5000 | UID ${basic.accountId} · Last sync ${new Date().toLocaleString()}
+        </div>
+      </div>
+    `;
+    
+    profileRoot.innerHTML = profileHtml;
+    apiStatusSpan.innerHTML = "✅ Loaded";
+    apiStatusSpan.style.background = "#2C5A3E";
+    setTimeout(() => { if(apiStatusSpan) apiStatusSpan.style.background = "#1F2A3C"; }, 1800);
+  }
+
+  // API FETCH FUNCTION 
+  async function fetchPlayerInfo(uid, region) {
+    if (!uid || uid.toString().trim() === "") {
+      throw new Error("UID cannot be empty");
+    }
+    const cleanUid = uid.toString().trim();
+    const url = `http://localhost:5000/player-info?uid=${encodeURIComponent(cleanUid)}&region=${encodeURIComponent(region)}`;
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+    
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Origin': window.location.origin,
+        },
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: Server error`);
+      }
+      
+      const json = await response.json();
+      if (!json || json.success !== true) {
+        throw new Error(json?.message || "API returned error state");
+      }
+      return json;
+    } catch (err) {
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') throw new Error("Request timeout (12s) - check if localhost:5000 is running");
+      throw err;
+    }
+  }
+
+  // main load flow with error handling
+  async function loadProfile() {
+    let uid = uidInput.value.trim();
+    const region = regionSelect.value;
+    
+    if (!uid) {
+      apiStatusSpan.innerHTML = "⚠️ Enter UID";
+      apiStatusSpan.style.background = "#8B3C2C";
+      profileRoot.innerHTML = `<div class="error-message">❌ Please enter a valid UID (numeric ID)</div>`;
+      return;
+    }
+    
+    // force numeric only hint but keep as is
+    if (isNaN(Number(uid))) {
+      apiStatusSpan.innerHTML = "⚠️ Invalid UID";
+      profileRoot.innerHTML = `<div class="error-message">🔢 UID must be numeric. Example: 3168493928</div>`;
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      const result = await fetchPlayerInfo(uid, region);
+      renderProfile(result);
+    } catch (error) {
+      console.error(error);
+      let errorMsg = error.message || "Unknown error";
+      if (errorMsg.includes("Failed to fetch") || errorMsg.includes("NetworkError")) {
+        errorMsg = "🌐 Cannot connect to localhost:5000. Make sure the backend server is running (python/node server) and CORS is enabled.";
+      }
+      profileRoot.innerHTML = `
+        <div class="error-message" style="background: #2a1820; border-left-color: #FF8C5A;">
+          <strong>⚠️ Fetch error</strong><br>${escapeHtml(errorMsg)}<br><br>
+          <small>💡 Tip: Verify backend is active on port 5000 and endpoint /player-info responds correctly.</small>
+        </div>
+      `;
+      apiStatusSpan.innerHTML = "❌ Failed";
+      apiStatusSpan.style.background = "#7A2E2E";
+    } finally {
+      // status will be updated in render or error
+      if (apiStatusSpan.innerHTML === "⏳ Fetching...") apiStatusSpan.innerHTML = "⚠️ Error";
+    }
+  }
+
+  // Event listeners
+  fetchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    loadProfile();
+  });
+  
+  // optional: Enter key on uid field triggers fetch
+  uidInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') loadProfile();
+  });
+  
+  // initial auto load demo data matching the curl example (3168493928+BD)
+  window.addEventListener('load', () => {
+    // prefill demo values exactly as curl response
+    uidInput.value = "";
+    regionSelect.value = "BD";
+  });
+</script>
+</body>
+</html>
