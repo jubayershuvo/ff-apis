@@ -487,7 +487,7 @@
       throw new Error("UID cannot be empty");
     }
     const cleanUid = uid.toString().trim();
-    const url = `http://localhost:5000/player-info?uid=${encodeURIComponent(cleanUid)}&region=${encodeURIComponent(region)}`;
+    const url = `/player-info?uid=${encodeURIComponent(cleanUid)}&region=${encodeURIComponent(region)}`;
     
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 12000);
