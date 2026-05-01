@@ -59,7 +59,7 @@ def get_player_info():
     try:
         # Convert UID to integer
         account_id = int(uid)
-        data = get_jwt_if_not("BD")
+        data = get_jwt_if_not(region)
         jwt = data.get("jwt_token")
         
         if not jwt:
@@ -149,7 +149,7 @@ def get_batch_player_info():
     results = {}
     for uid in uids:
         uid_str = str(uid)
-        data = get_jwt_if_not("BD")
+        data = get_jwt_if_not(region)
         jwt = data.get("jwt_token")
         
         if not jwt:

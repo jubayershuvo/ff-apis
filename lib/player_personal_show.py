@@ -8,7 +8,7 @@ import chardet
 # Region-specific endpoints
 REGION_ENDPOINTS = {
     "BD": "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow",
-    "IN": "https://clientbp-in.ggpolarbear.com/GetPlayerPersonalShow",
+    "IND": "https://clientbp-in.ggpolarbear.com/GetPlayerPersonalShow",
     "US": "https://clientbp-us.ggpolarbear.com/GetPlayerPersonalShow",
     "EU": "https://clientbp-eu.ggpolarbear.com/GetPlayerPersonalShow",
     "SG": "https://clientbp-sg.ggpolarbear.com/GetPlayerPersonalShow",
@@ -19,7 +19,8 @@ REGION_ENDPOINTS = {
     "KR": "https://clientbp-kr.ggpolarbear.com/GetPlayerPersonalShow",
     "JP": "https://clientbp-jp.ggpolarbear.com/GetPlayerPersonalShow",
     "CN": "https://clientbp-cn.ggpolarbear.com/GetPlayerPersonalShow",
-    "TW": "https://clientbp-tw.ggpolarbear.com/GetPlayerPersonalShow"
+    "TW": "https://clientbp-tw.ggpolarbear.com/GetPlayerPersonalShow",
+    "PK": "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
 }
 
 DEFAULT_ENDPOINT = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"

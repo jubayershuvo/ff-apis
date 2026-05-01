@@ -65,7 +65,7 @@ class JWTManager:
     # Fetch new JWT
     # -------------------------
     def fetch_jwt(self, uid, password, region):
-        res = get_ff_guest_jwt(uid=uid, password=password, region=region)
+        res = get_ff_guest_jwt(uid=uid, password=password)
 
         if not res.get("jwt_token"):
             return None
@@ -82,7 +82,7 @@ class JWTManager:
     # -------------------------
     # Main function
     # -------------------------
-    def get_jwt_if_not(self, region="BD"):
+    def get_jwt_if_not(self, region):
         """
         Fast JWT retrieval system:
         - random account selection

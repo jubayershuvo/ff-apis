@@ -1,14 +1,13 @@
 import requests
 
 
-def get_ff_guest_jwt(uid, password, region="BD"):
+def get_ff_guest_jwt(uid, password):
     """
     Fetch FF guest JWT token
 
     Args:
         uid (str): User ID
         password (str): Password/hash
-        region (str): Region code (default: BD)
 
     Returns:
         dict: JSON response from API
@@ -18,8 +17,7 @@ def get_ff_guest_jwt(uid, password, region="BD"):
 
     params = {
         "uid": uid,
-        "password": password,
-        "region": region
+        "password": password
     }
 
     try:
