@@ -63,5 +63,18 @@
       "timestamp": 1777727356,
       "timezone": "UTC"
     }
+  },
+  {
+    "uid": "4766959917",
+    "password": "SHUVO_BYJSCODER_1PVIGJ0K",
+    "region": "BD",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjEiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NTE5MjQ5OCwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwaHVXQjBMRFcyK1BUaCtDTiIsIm5vdGlfcmVnaW9uIjoiQkQiLCJsb2NrX3JlZ2lvbiI6IkJEIiwiZXh0ZXJuYWxfaWQiOiIyNjkxMDUyODdjM2RmNDNiMDZiODI1YzQ1ZDYyMmY4MiIsImV4dGVybmFsX3R5cGUiOjQsInBsYXRfaWQiOjEsImNsaWVudF92ZXJzaW9uIjoiMS4xMTQuMTMiLCJlbXVsYXRvcl9zY29yZSI6MTAwLCJpc19lbXVsYXRvciI6dHJ1ZSwiY291bnRyeV9jb2RlIjoiVVMiLCJleHRlcm5hbF91aWQiOjQ3NjY5NTk5MTcsInJlZ19hdmF0YXIiOjEwMjAwMDAwNywic291cmNlIjowLCJsb2NrX3JlZ2lvbl90aW1lIjoxNzc3NjI4NzA5LCJjbGllbnRfdHlwZSI6Miwic2lnbmF0dXJlX21kNSI6Ijc0MjhiMjUzZGVmYzE2NDAxOGM2MDRhMWViYmZlYmRmIiwidXNpbmdfdmVyc2lvbiI6MSwicmVsZWFzZV9jaGFubmVsIjoiYW5kcm9pZCIsInJlbGVhc2VfdmVyc2lvbiI6Ik9CNTMiLCJleHAiOjE3Nzc3MjkyNjh9.JasPvYgp82PQ-YssqxkiBHYkbKJp0PJRhuqeBtnafeo",
+    "server_url": "https://clientbp.ggpolarbear.com",
+    "access_token": "f7682185945d085e27084bca5981285c0a16f41a71cdac3d4bbcab16df1cdad9",
+    "expiry": {
+      "datetime": "2026-05-02 13:41:08",
+      "timestamp": 1777729268,
+      "timezone": "UTC"
+    }
   }
 ]
