@@ -75,6 +75,7 @@ class JWTManager:
             "password": password,
             "region": region,
             "jwt_token": res["jwt_token"],
+            "server_url": res.get("server_url"),
             "access_token": res.get("access_token"),
             "expiry": res.get("expiry", {})
         }
@@ -117,6 +118,7 @@ class JWTManager:
                         "source": "cache",
                         "uid": uid,
                         "jwt_token": cached["jwt_token"],
+                        "server_url": cached.get("server_url"),
                         "access_token": cached.get("access_token"),
                         "expiry": cached.get("expiry")
                     }
@@ -136,6 +138,7 @@ class JWTManager:
                 "source": "fresh",
                 "uid": uid,
                 "jwt_token": new_data["jwt_token"],
+                "server_url": new_data["server_url"],
                 "access_token": new_data["access_token"],
                 "expiry": new_data["expiry"]
             }

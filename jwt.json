@@ -1,0 +1,67 @@
+[
+  {
+    "uid": "4766779268",
+    "password": "SHUVOBYSTARGMRxMEaz9Ud",
+    "region": "BD",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjEiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NDI3OTExNiwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwcHQzN2dOUG5qNkRkIiwibm90aV9yZWdpb24iOiJCRCIsImxvY2tfcmVnaW9uIjoiQkQiLCJleHRlcm5hbF9pZCI6IjM0ZmRhZjQxZTVhMGE1MjljNzI3YTc4OTEzZDc0ZjZmIiwiZXh0ZXJuYWxfdHlwZSI6NCwicGxhdF9pZCI6MSwiY2xpZW50X3ZlcnNpb24iOiIxLjExNC4xMyIsImVtdWxhdG9yX3Njb3JlIjoxMDAsImlzX2VtdWxhdG9yIjp0cnVlLCJjb3VudHJ5X2NvZGUiOiJTRyIsImV4dGVybmFsX3VpZCI6NDc2Njc3OTI2OCwicmVnX2F2YXRhciI6MTAyMDAwMDA3LCJzb3VyY2UiOjAsImxvY2tfcmVnaW9uX3RpbWUiOjE3Nzc2MjMxMzIsImNsaWVudF90eXBlIjoyLCJzaWduYXR1cmVfbWQ1IjoiNzQyOGIyNTNkZWZjMTY0MDE4YzYwNGExZWJiZmViZGYiLCJ1c2luZ192ZXJzaW9uIjoxLCJyZWxlYXNlX2NoYW5uZWwiOiJhbmRyb2lkIiwicmVsZWFzZV92ZXJzaW9uIjoiT0I1MyIsImV4cCI6MTc3NzcyNjc3Nn0.If7n7Z-LInJKbA3sjvgjUX78Ki8CPP_Bj_ZmKl9mCww",
+    "server_url": "https://clientbp.ggpolarbear.com",
+    "access_token": "f29d4b01117ae225b8e4490772c7979c2c9f31fda275e40a2f1b2d6acb539b96",
+    "expiry": {
+      "datetime": "2026-05-02 18:59:36",
+      "timestamp": 1777726776,
+      "timezone": "UTC"
+    }
+  },
+  {
+    "uid": "4766785490",
+    "password": "SHUVOBYSTARGMRmKV1VS9d",
+    "region": "BD",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjEiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NDMwOTQ1Miwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwaHVXUDBMRFIyK1BTaCtDQSIsIm5vdGlfcmVnaW9uIjoiQkQiLCJsb2NrX3JlZ2lvbiI6IkJEIiwiZXh0ZXJuYWxfaWQiOiI1MzY3ODE4YTgzY2EyZTJlMzYwZTZiZjUzNmRiNjU2ZSIsImV4dGVybmFsX3R5cGUiOjQsInBsYXRfaWQiOjEsImNsaWVudF92ZXJzaW9uIjoiMS4xMTQuMTMiLCJlbXVsYXRvcl9zY29yZSI6MTAwLCJpc19lbXVsYXRvciI6dHJ1ZSwiY291bnRyeV9jb2RlIjoiU0ciLCJleHRlcm5hbF91aWQiOjQ3NjY3ODU0OTAsInJlZ19hdmF0YXIiOjEwMjAwMDAwNywic291cmNlIjowLCJsb2NrX3JlZ2lvbl90aW1lIjoxNzc3NjIzMzEzLCJjbGllbnRfdHlwZSI6Miwic2lnbmF0dXJlX21kNSI6Ijc0MjhiMjUzZGVmYzE2NDAxOGM2MDRhMWViYmZlYmRmIiwidXNpbmdfdmVyc2lvbiI6MSwicmVsZWFzZV9jaGFubmVsIjoiYW5kcm9pZCIsInJlbGVhc2VfdmVyc2lvbiI6Ik9CNTMiLCJleHAiOjE3Nzc3MjY4MDB9.eNEq9oQpTZBc_9PC7Hz0WsWrY0DmhscLzLRXD4BHPYM",
+    "server_url": "https://clientbp.ggpolarbear.com",
+    "access_token": "5d961141732d65564c225d7a905649f8ebe8a4f395ed0c57c4b0ded2296b7ee2",
+    "expiry": {
+      "datetime": "2026-05-02 19:00:00",
+      "timestamp": 1777726800,
+      "timezone": "UTC"
+    }
+  },
+  {
+    "uid": "4766960568",
+    "password": "SHUVO_BYJSCODER_IRso6gNs",
+    "region": "BD",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjEiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NTE5NTQ2NSwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwaHVXTzBMRGUyK1BRaCtDTSIsIm5vdGlfcmVnaW9uIjoiQkQiLCJsb2NrX3JlZ2lvbiI6IkJEIiwiZXh0ZXJuYWxfaWQiOiI5NTQxNzkxZGM2NmY4OTMxOThmNTYyZWJhMWEwNTczMCIsImV4dGVybmFsX3R5cGUiOjQsInBsYXRfaWQiOjEsImNsaWVudF92ZXJzaW9uIjoiMS4xMTQuMTMiLCJlbXVsYXRvcl9zY29yZSI6MTAwLCJpc19lbXVsYXRvciI6dHJ1ZSwiY291bnRyeV9jb2RlIjoiU0ciLCJleHRlcm5hbF91aWQiOjQ3NjY5NjA1NjgsInJlZ19hdmF0YXIiOjEwMjAwMDAwNywic291cmNlIjowLCJsb2NrX3JlZ2lvbl90aW1lIjoxNzc3NjI4NzI4LCJjbGllbnRfdHlwZSI6Miwic2lnbmF0dXJlX21kNSI6Ijc0MjhiMjUzZGVmYzE2NDAxOGM2MDRhMWViYmZlYmRmIiwidXNpbmdfdmVyc2lvbiI6MSwicmVsZWFzZV9jaGFubmVsIjoiYW5kcm9pZCIsInJlbGVhc2VfdmVyc2lvbiI6Ik9CNTMiLCJleHAiOjE3Nzc3MjcwMzd9.adV0ZhdrIBArB0B_42EI2-BgBRrXUuPLo5JgiUYn41Q",
+    "server_url": "https://clientbp.ggpolarbear.com",
+    "access_token": "a14bdaed1e6f0cd5f013bbfa0bcf5fb37168a68da426f9ba0dc324f7ece17a6b",
+    "expiry": {
+      "datetime": "2026-05-02 19:03:57",
+      "timestamp": 1777727037,
+      "timezone": "UTC"
+    }
+  },
+  {
+    "uid": "4767170370",
+    "password": "SHUVO_BYJSCODER_ZmVaKavr",
+    "region": "IND",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjMiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NjIzMjE3NSwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwcHQzYnM0V0V1TmFHNU5RPSIsIm5vdGlfcmVnaW9uIjoiSU5EIiwibG9ja19yZWdpb24iOiJJTkQiLCJleHRlcm5hbF9pZCI6IjdjNWMxZjQ3YmNiYjYzZjYwODYzM2I0M2UyNzRhYjJlIiwiZXh0ZXJuYWxfdHlwZSI6NCwicGxhdF9pZCI6MSwiY2xpZW50X3ZlcnNpb24iOiIxLjExNC4xMyIsImVtdWxhdG9yX3Njb3JlIjoxMDAsImlzX2VtdWxhdG9yIjp0cnVlLCJjb3VudHJ5X2NvZGUiOiJTRyIsImV4dGVybmFsX3VpZCI6NDc2NzE3MDM3MCwicmVnX2F2YXRhciI6MTAyMDAwMDA3LCJzb3VyY2UiOjAsImxvY2tfcmVnaW9uX3RpbWUiOjE3Nzc2MzU2ODEsImNsaWVudF90eXBlIjoyLCJzaWduYXR1cmVfbWQ1IjoiNzQyOGIyNTNkZWZjMTY0MDE4YzYwNGExZWJiZmViZGYiLCJ1c2luZ192ZXJzaW9uIjoxLCJyZWxlYXNlX2NoYW5uZWwiOiJhbmRyb2lkIiwicmVsZWFzZV92ZXJzaW9uIjoiT0I1MyIsImV4cCI6MTc3NzcyNzI5N30.yAv8R_-3kfQsLkYgZTyAw_YLAbKzPPQQryPX9UcZzig",
+    "server_url": "https://client.ind.freefiremobile.com",
+    "access_token": "bf83c17cf789533edb055ea77f922bc32e41e7dbcab9b4d8674c8bd7cd11105a",
+    "expiry": {
+      "datetime": "2026-05-02 19:08:17",
+      "timestamp": 1777727297,
+      "timezone": "UTC"
+    }
+  },
+  {
+    "uid": "4767130515",
+    "password": "SHUVO_BYJSCODER_lheoAJKI",
+    "region": "IND",
+    "jwt_token": "eyJhbGciOiJIUzI1NiIsInN2ciI6IjMiLCJ0eXAiOiJKV1QifQ.eyJhY2NvdW50X2lkIjoxNTU2NjA0NzEzNCwibmlja25hbWUiOiJZcStwMlkya2d0ZkMyZERwcHQzYnM0ZUV1TlNtMWc9PSIsIm5vdGlfcmVnaW9uIjoiSU5EIiwibG9ja19yZWdpb24iOiJJTkQiLCJleHRlcm5hbF9pZCI6ImI5NTg5MWM5N2Q0NDA2ZWZmMTAzMjU5YjE5NjhjMjQxIiwiZXh0ZXJuYWxfdHlwZSI6NCwicGxhdF9pZCI6MSwiY2xpZW50X3ZlcnNpb24iOiIxLjExNC4xMyIsImVtdWxhdG9yX3Njb3JlIjoxMDAsImlzX2VtdWxhdG9yIjp0cnVlLCJjb3VudHJ5X2NvZGUiOiJTRyIsImV4dGVybmFsX3VpZCI6NDc2NzEzMDUxNSwicmVnX2F2YXRhciI6MTAyMDAwMDA3LCJzb3VyY2UiOjAsImxvY2tfcmVnaW9uX3RpbWUiOjE3Nzc2MzQ0MjgsImNsaWVudF90eXBlIjoyLCJzaWduYXR1cmVfbWQ1IjoiNzQyOGIyNTNkZWZjMTY0MDE4YzYwNGExZWJiZmViZGYiLCJ1c2luZ192ZXJzaW9uIjoxLCJyZWxlYXNlX2NoYW5uZWwiOiJhbmRyb2lkIiwicmVsZWFzZV92ZXJzaW9uIjoiT0I1MyIsImV4cCI6MTc3NzcyNzM1Nn0.16F0MDyCkWqhIMwgN3MSBOMDeH2o2hlMF1-LhIm42Ss",
+    "server_url": "https://client.ind.freefiremobile.com",
+    "access_token": "078a4e762a6edf1e00c3920e376b7b0bbbc9c8e163c18f57c2cccc715089a002",
+    "expiry": {
+      "datetime": "2026-05-02 19:09:16",
+      "timestamp": 1777727356,
+      "timezone": "UTC"
+    }
+  }
+]

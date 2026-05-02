@@ -5,25 +5,7 @@ import requests
 from datetime import datetime
 import chardet
 
-# Region-specific endpoints
-REGION_ENDPOINTS = {
-    "BD": "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow",
-    "IND": "https://clientbp-in.ggpolarbear.com/GetPlayerPersonalShow",
-    "US": "https://clientbp-us.ggpolarbear.com/GetPlayerPersonalShow",
-    "EU": "https://clientbp-eu.ggpolarbear.com/GetPlayerPersonalShow",
-    "SG": "https://clientbp-sg.ggpolarbear.com/GetPlayerPersonalShow",
-    "TR": "https://clientbp-tr.ggpolarbear.com/GetPlayerPersonalShow",
-    "RU": "https://clientbp-ru.ggpolarbear.com/GetPlayerPersonalShow",
-    "BR": "https://clientbp-br.ggpolarbear.com/GetPlayerPersonalShow",
-    "ME": "https://clientbp-me.ggpolarbear.com/GetPlayerPersonalShow",
-    "KR": "https://clientbp-kr.ggpolarbear.com/GetPlayerPersonalShow",
-    "JP": "https://clientbp-jp.ggpolarbear.com/GetPlayerPersonalShow",
-    "CN": "https://clientbp-cn.ggpolarbear.com/GetPlayerPersonalShow",
-    "TW": "https://clientbp-tw.ggpolarbear.com/GetPlayerPersonalShow",
-    "PK": "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
-}
 
-DEFAULT_ENDPOINT = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
 
 AES_KEY = b"Yg&tc%DEuh6%Zc^8"
 AES_IV = b"6oyZDr22E3ychjM%"
@@ -95,7 +77,7 @@ def decode_bytes_correctly(byte_data):
     except:
         return byte_data.hex()
 
-def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token: str = None, region: str = "BD") -> dict:
+def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token: str = None, server_url: str = None) -> dict:
     """
     Get player personal show data
     
@@ -103,7 +85,7 @@ def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token
         account_id: The account ID to fetch personal show data for
         call_sign_src: Source type (default 7 = PERSONAL_SHOW_VIEW)
         jwt_token: JWT token for authorization
-        region: Region code (BD, IN, US, EU, SG, TR, RU, BR, ME, KR, JP, CN, TW)
+        server_url: The URL of the server to send the request to
     
     Returns:
         Marked data dict with camelCase naming
@@ -134,9 +116,9 @@ def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token
         
         return encrypted.hex()
     
-    def get_player_personal_show(jwt_token: str, hex_payload: str, region: str):
+    def get_player_personal_show(jwt_token: str, hex_payload: str, server_url:str):
         """Send request to get player personal show with region support"""
-        endpoint = REGION_ENDPOINTS.get(region.upper(), DEFAULT_ENDPOINT)
+        endpoint = server_url +'/GetPlayerPersonalShow'
         
         headers = {
             "User-Agent": "UnityPlayer/2022.3.47f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
@@ -149,6 +131,7 @@ def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token
         }
         
         binary_data = bytes.fromhex(hex_payload)
+        print(f"Sending request to {endpoint} with payload: {hex_payload}")
         response = requests.post(endpoint, headers=headers, data=binary_data, timeout=30)
         return response
     
@@ -509,7 +492,7 @@ def player_personal_show_data(account_id: int, call_sign_src: int = 7, jwt_token
         hex_payload = create_player_personal_show_request(account_id, call_sign_src)
         
         if jwt_token:
-            response = get_player_personal_show(jwt_token, hex_payload, region)
+            response = get_player_personal_show(jwt_token, hex_payload, server_url)
             
             if response.status_code != 200:
                 return {

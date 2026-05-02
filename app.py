@@ -1,11 +1,28 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from lib.jwt_manager import get_jwt_if_not
-from lib.player_personal_show import player_personal_show_data, REGION_ENDPOINTS
+from lib.player_personal_show import player_personal_show_data
 
 app = Flask(__name__, static_folder="static")
 CORS(app)  # Enable CORS for all routes
 
+
+REGION_ENDPOINTS = {
+    "BD": "Bangladesh",
+    "IND": "India",
+    "US": "United States",
+    "EU": "Europe",
+    "SG": "Singapore",
+    "TR": "Turkey",
+    "RU": "Russia",
+    "BR": "Brazil",
+    "ME": "Middle East",
+    "KR": "Korea",
+    "JP": "Japan",
+    "CN": "China",
+    "TW": "Taiwan",
+    "PK": "Pakistan",
+}
 # Supported regions list
 SUPPORTED_REGIONS = list(REGION_ENDPOINTS.keys())
 
@@ -61,6 +78,7 @@ def get_player_info():
         account_id = int(uid)
         data = get_jwt_if_not(region)
         jwt = data.get("jwt_token")
+        server_url = data.get("server_url")
         
         if not jwt:
             return jsonify({
@@ -74,7 +92,7 @@ def get_player_info():
             account_id=account_id,
             call_sign_src=7,
             jwt_token=jwt,
-            region=region
+            server_url=server_url
         )
         
         # Add metadata to response
@@ -85,7 +103,7 @@ def get_player_info():
                 "api_version": "1.0",
                 "supported_regions": SUPPORTED_REGIONS
             }
-            print(player_data)
+       
         
         return jsonify(player_data)
     
@@ -151,6 +169,7 @@ def get_batch_player_info():
         uid_str = str(uid)
         data = get_jwt_if_not(region)
         jwt = data.get("jwt_token")
+        server_url = data.get("server_url")
         
         if not jwt:
             return jsonify({
@@ -164,7 +183,7 @@ def get_batch_player_info():
                 account_id=account_id,
                 call_sign_src=7,
                 jwt_token=jwt,
-                region=region
+                server_url=server_url
             )
             results[uid_str] = player_data
         except ValueError:
