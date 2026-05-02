@@ -52,33 +52,45 @@ class JWTManager:
         return next((x for x in self.jwt_store if str(x.get("uid")) == str(uid)), None)
 
     # -------------------------
-    # Save / update JWT
+    # Save / update JWT (SAFE)
     # -------------------------
     def save_jwt(self, entry):
-        self.jwt_store = [
-            x for x in self.jwt_store if str(x.get("uid")) != str(entry["uid"])
-        ]
-        self.jwt_store.append(entry)
-        save_json(JWT_FILE, self.jwt_store)
+        try:
+            self.jwt_store = [
+                x for x in self.jwt_store if str(x.get("uid")) != str(entry["uid"])
+            ]
+            self.jwt_store.append(entry)
+
+            save_json(JWT_FILE, self.jwt_store)
+            return True
+
+        except Exception as e:
+            print(f"[JWT] Save failed: {e}")
+            return False
 
     # -------------------------
     # Fetch new JWT
     # -------------------------
     def fetch_jwt(self, uid, password, region):
-        res = get_ff_guest_jwt(uid=uid, password=password)
+        try:
+            res = get_ff_guest_jwt(uid=uid, password=password)
 
-        if not res.get("jwt_token"):
+            if not res or not res.get("jwt_token"):
+                return None
+
+            return {
+                "uid": uid,
+                "password": password,
+                "region": region,
+                "jwt_token": res["jwt_token"],
+                "server_url": res.get("server_url"),
+                "access_token": res.get("access_token"),
+                "expiry": res.get("expiry", {})
+            }
+
+        except Exception as e:
+            print(f"[JWT] Fetch error: {e}")
             return None
-
-        return {
-            "uid": uid,
-            "password": password,
-            "region": region,
-            "jwt_token": res["jwt_token"],
-            "server_url": res.get("server_url"),
-            "access_token": res.get("access_token"),
-            "expiry": res.get("expiry", {})
-        }
 
     # -------------------------
     # Main function
@@ -123,7 +135,7 @@ class JWTManager:
                         "expiry": cached.get("expiry")
                     }
 
-            # 2️⃣ Fetch new JWT if expired/missing
+            # 2️⃣ Fetch new JWT
             print(f"[JWT] Refreshing UID: {uid} ({region})")
 
             new_data = self.fetch_jwt(uid, password, region)
@@ -131,11 +143,11 @@ class JWTManager:
             if not new_data:
                 continue
 
-            self.save_jwt(new_data)
+            saved = self.save_jwt(new_data)
 
             return {
                 "success": True,
-                "source": "fresh",
+                "source": "fresh" if saved else "fresh_no_save",
                 "uid": uid,
                 "jwt_token": new_data["jwt_token"],
                 "server_url": new_data["server_url"],
@@ -150,7 +162,7 @@ class JWTManager:
 
 
 # -----------------------------
-# Simple usage function wrapper
+# Simple wrapper
 # -----------------------------
 
 def get_jwt_if_not(region):
